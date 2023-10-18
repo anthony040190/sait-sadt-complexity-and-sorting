@@ -19,4 +19,8 @@ public class SquarePrism extends Shape{
 		return side * side;
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ", height = " + super.getHeight() + ", radius = " + this.side;
+	}
 }

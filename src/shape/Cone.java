@@ -19,4 +19,8 @@ public class Cone extends Shape{
 	    return Math.PI * radius * radius;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ", height = " + super.getHeight() + ", radius = " + this.radius;
+	}
 }
