@@ -18,4 +18,9 @@ public class OctagonalPrism extends Shape {
 	public double getBaseArea() {
 		return 2 * (1 + Math.sqrt(2)) * side * side;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ", height = " + super.getHeight() + ", radius = " + this.side;
+	}
 }

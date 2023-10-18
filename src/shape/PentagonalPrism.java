@@ -19,4 +19,8 @@ public class PentagonalPrism extends Shape{
 		return (5 * side * side) / (4 * Math.tan(54));
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ", height = " + super.getHeight() + ", radius = " + this.side;
+	}
 }
