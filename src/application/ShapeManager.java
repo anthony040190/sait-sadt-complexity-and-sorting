@@ -3,59 +3,88 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import shape.*;
 
 public class ShapeManager {
+	
+	private ArrayList<Shape>	shapesList;
+	
+	public ShapeManager() {
+		
+		shapesList = new ArrayList<Shape>();
+		fillShapeList();
+	}
 
     private void fillShapeList() {
     	
-        List<Shape> shapes = new ArrayList<>();
-
-        String[] fileNames = {"res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt"}; 
-
-        for (String fileName : fileNames) {
-            try {
-                File file = new File(fileName);
-                Scanner scanner = new Scanner(file);
-
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(" "); 
-                    String shapeType = parts[0];
-                    double height = Double.parseDouble(parts[1]);
-
-                    if (shapeType.equals("Cylinder")) {
-                        double radius = Double.parseDouble(parts[2]);
-                        shapes.add(new Cylinder(height, radius));
-                    } else if (shapeType.equals("Cone")) {
-                        double radius = Double.parseDouble(parts[2]);
-                        shapes.add(new Cone(height, radius));
-                    } else if (shapeType.equals("Pyramid")) {
-                        double side = Double.parseDouble(parts[2]);
-                        shapes.add(new Pyramid(height, side));
-                    } else if (shapeType.equals("PentagonalPrism")) {
-                        double side = Double.parseDouble(parts[2]);
-                        shapes.add(new Pyramid(height, side));
-                    } else if (shapeType.equals("TriangularPrism")) {
-                        double side = Double.parseDouble(parts[2]);
-                        shapes.add(new Pyramid(height, side));
-                    } else if (shapeType.equals("OctagonalPrism")) {
-                        double side = Double.parseDouble(parts[2]);
-                        shapes.add(new Pyramid(height, side));
-                    } else if (shapeType.equals("SquarePrism")) {
-                        double side = Double.parseDouble(parts[2]);
-                        shapes.add(new Pyramid(height, side));
-                    }
-                scanner.close();
-                }
-                
-                } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + fileName);
-                e.printStackTrace();
-            }
-        }
-    }
+		 String[] fileNames = {"res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt"};
+		 
+		 for(String fileName : fileNames) {
+			 
+			 File textFile = new File(fileName);
+			 
+			 try {
+				Scanner sc = new Scanner(textFile);
+				
+				while(sc.hasNextLine()) {
+					
+					String data = sc.nextLine();
+					String[] splittedData = data.split(" ");
+					int numberOfData = Integer.parseInt(splittedData[0]);
+					
+					System.out.println(Arrays.toString(splittedData));
+					
+					int heightCounter = 2;
+					int secondDataCounter = 3;
+					for(int i = 1; i < splittedData.length; i += 3) {
+//						System.out.println(splittedData[i]);
+						
+						String shapeName = splittedData[i];
+						double height = Double.parseDouble(splittedData[heightCounter]);
+						double secondData = Double.parseDouble(splittedData[secondDataCounter]);
+						
+						switch(shapeName) {
+							case "Cone":
+								shapesList.add(new Cone(height, secondData));
+								break;
+							case "Cylinder":
+								shapesList.add(new Cylinder(height, secondData));
+								break;
+							case "Pyramid":
+								shapesList.add(new Pyramid(height, secondData));
+								break;
+							case "OctagonalPrism":
+								shapesList.add(new OctagonalPrism(height, secondData));
+								break;
+							case "PentagonalPrism":
+								shapesList.add(new PentagonalPrism(height, secondData));
+								break;
+							case "SquarePrism":
+								shapesList.add(new SquarePrism(height, secondData));
+								break;
+							case "TriangularPrism":
+								shapesList.add(new TriangularPrism(height, secondData));
+								break;
+						}
+												
+						heightCounter += 3;
+						secondDataCounter += 3;
+					}
+					
+					for(Shape shape : shapesList)
+						System.out.println(shape.toString());
+				}
+								
+				sc.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+		 
+	 }
 }
 
