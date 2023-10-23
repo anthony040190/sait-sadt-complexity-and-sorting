@@ -67,6 +67,51 @@ public class SortManager
 				Sorts.bubbleSort(shapes, new VolumeComparator());
 			}
 		}
+		if (sortType == 'I' || sortType == 'i') {
+			if (compareType == 'H' || compareType == 'h') {
+				Sorts.insertionSort(shapes);
+			} else if (compareType == 'A' || compareType == 'a') {
+				Sorts.insertionSort(shapes, new BaseAreaComparator());
+			} else if (compareType == 'V' || compareType == 'v') {
+				Sorts.insertionSort(shapes, new VolumeComparator());
+			}
+		}
+		if (sortType == 'S' || sortType == 's') {
+			if (compareType == 'H' || compareType == 'h') {
+				Sorts.selectionSort(shapes);
+			} else if (compareType == 'A' || compareType == 'a') {
+				Sorts.selectionSort(shapes, new BaseAreaComparator());
+			} else if (compareType == 'V' || compareType == 'v') {
+				Sorts.selectionSort(shapes, new VolumeComparator());
+			}
+		}
+		if (sortType == 'M' || sortType == 'm') {
+			if (compareType == 'H' || compareType == 'h') {
+				Sorts.mergeSort(shapes);
+			} else if (compareType == 'A' || compareType == 'a') {
+				Sorts.mergeSort(shapes, new BaseAreaComparator());
+			} else if (compareType == 'V' || compareType == 'v') {
+				Sorts.mergeSort(shapes, new VolumeComparator());
+			}
+		}
+		if (sortType == 'Q' || sortType == 'q') {
+			if (compareType == 'H' || compareType == 'h') {
+				Sorts.quickSort(shapes);
+			} else if (compareType == 'A' || compareType == 'a') {
+				Sorts.quickSort(shapes, new BaseAreaComparator());
+			} else if (compareType == 'V' || compareType == 'v') {
+				Sorts.quickSort(shapes, new VolumeComparator());
+			}
+		}
+		if (sortType == 'H' || sortType == 'h') {
+			if (compareType == 'H' || compareType == 'h') {
+				Sorts.heapSort(shapes);
+			} else if (compareType == 'A' || compareType == 'a') {
+				Sorts.heapSort(shapes, new BaseAreaComparator());
+			} else if (compareType == 'V' || compareType == 'v') {
+				Sorts.heapSort(shapes, new VolumeComparator());
+			}
+		}
 
 	}
 
