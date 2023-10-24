@@ -43,8 +43,26 @@ public class SortManager
 		  { 
 			  compareType = args[0].substring(2).charAt(0); 
 		  } 
-		  //..........
-		  
+		  else if (args[1].toLowerCase().startsWith("-t")) 
+		  {
+	          compareType = args[1].substring(2).charAt(0);
+	      }
+		  else if (args[2].toLowerCase().startsWith("-t")) 
+		  {
+	          compareType = args[2].substring(2).charAt(0);
+	      }
+	      if (args[0].toLowerCase().startsWith("-s")) 
+	      {
+	          sortType = args[0].substring(2).charAt(0);
+	      }
+	      else if (args[1].toLowerCase().startsWith("-s")) 
+	      {
+	          sortType = args[1].substring(2).charAt(0);
+	      }
+	      else if (args[2].toLowerCase().startsWith("-s")) 
+	      {
+	          sortType = args[2].substring(2).charAt(0);
+	      }		  
 			 
 		fillShapeArray();
 		sortShapes();
@@ -53,7 +71,20 @@ public class SortManager
 	}
 
 	private void printSortedShapes() {
-		// TODO Auto-generated method stub
+	    long startTime = System.nanoTime();
+	    sortShapes();
+	    long endTime = System.nanoTime();
+	    long duration = (endTime - startTime) / 1000000; // milliseconds
+
+	    System.out.println("Time taken to sort: " + duration + " milliseconds");
+
+	    System.out.println("First sorted value: " + shapes[0]);
+	    System.out.println("Last sorted value: " + shapes[shapes.length - 1]);
+
+	    int interval = Math.max(1, shapes.length / 1000);
+	    for (int i = 0; i < shapes.length; i += interval) {
+	        System.out.println("Value at index " + i + ": " + shapes[i]);
+	    }
 
 	}
 
