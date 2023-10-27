@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import shape.Cone;
@@ -20,10 +21,12 @@ import utility.VolumeComparator;
 
 public class SortManager 
 {
-	private String fileName;
+	private String fileName = "";
 	private char compareType;
 	private char sortType;
 	private Shape[] shapes;
+	Shape[] shapesList;
+	
 
 	public SortManager(String[] args) 
 	{
@@ -39,6 +42,7 @@ public class SortManager
 		  {
 			  fileName = args[2].substring(3); 
 		  } 
+		 
 		  if(args[0].toLowerCase().startsWith("-t"))
 		  { 
 			  compareType = args[0].substring(2).charAt(0); 
@@ -51,6 +55,7 @@ public class SortManager
 		  {
 	          compareType = args[2].substring(2).charAt(0);
 	      }
+		  
 	      if (args[0].toLowerCase().startsWith("-s")) 
 	      {
 	          sortType = args[0].substring(2).charAt(0);
@@ -91,11 +96,11 @@ public class SortManager
 	private void sortShapes() {
 		if (sortType == 'B' || sortType == 'b') {
 			if (compareType == 'H' || compareType == 'h') {
-				Sorts.bubbleSort(shapes);
+				Sorts.bubbleSort(shapesList);
 			} else if (compareType == 'A' || compareType == 'a') {
-				Sorts.bubbleSort(shapes, new BaseAreaComparator());
+				Sorts.bubbleSort(shapesList, new BaseAreaComparator());
 			} else if (compareType == 'V' || compareType == 'v') {
-				Sorts.bubbleSort(shapes, new VolumeComparator());
+				Sorts.bubbleSort(shapesList, new VolumeComparator());
 			}
 		}
 		if (sortType == 'I' || sortType == 'i') {
@@ -145,11 +150,40 @@ public class SortManager
 		}
 
 	}
+	
+	private int getTotalData() {
+		
+		String[] fileNames = { "res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt" };
+		int totalData = 0;
+		for (String fileName : fileNames) {
+
+			File textFile = new File(fileName);
+
+			try {
+				Scanner sc = new Scanner(textFile);
+
+				while (sc.hasNextLine()) {
+
+					String data = sc.nextLine();
+					String[] splittedData = data.split(" ");
+					
+					totalData += Integer.parseInt(splittedData[0]);
+					
+				}
+				 
+				sc.close();
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return totalData;
+	}
 
 	private void fillShapeArray() {
 		String[] fileNames = { "res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt" };
-
-		ArrayList<Shape> shapesList = new ArrayList<>();
+//		ArrayList<Shape> shapesList = new ArrayList<>();
 
 		for (String fileName : fileNames) {
 
@@ -173,25 +207,32 @@ public class SortManager
 
 						switch (shapeName) {
 						case "Cone":
-							shapesList.add(new Cone(height, secondData));
+//							shapesList.add(new Cone(height, secondData));
+							shapesList = new Cone(height, secondData);
 							break;
 						case "Cylinder":
-							shapesList.add(new Cylinder(height, secondData));
+//							shapesList.add(new Cylinder(height, secondData));
+							shapesList = new Cylinder(height, secondData);
 							break;
 						case "Pyramid":
-							shapesList.add(new Pyramid(height, secondData));
+//							shapesList.add(new Pyramid(height, secondData));
+							shapesList = new Pyramid(height, secondData);
 							break;
 						case "OctagonalPrism":
-							shapesList.add(new OctagonalPrism(height, secondData));
+//							shapesList.add(new OctagonalPrism(height, secondData));
+							shapesList = new OctagonalPrism(height, secondData);
 							break;
 						case "PentagonalPrism":
-							shapesList.add(new PentagonalPrism(height, secondData));
+//							shapesList.add(new PentagonalPrism(height, secondData));
+							shapesList = new PentagonalPrism(height, secondData);
 							break;
 						case "SquarePrism":
-							shapesList.add(new SquarePrism(height, secondData));
+//							shapesList.add(new SquarePrism(height, secondData));
+							shapesList = new SquarePrism(height, secondData);
 							break;
 						case "TriangularPrism":
-							shapesList.add(new TriangularPrism(height, secondData));
+//							shapesList.add(new TriangularPrism(height, secondData));
+							shapesList = new TriangularPrism(height, secondData);
 							break;
 						}
 
@@ -199,8 +240,8 @@ public class SortManager
 						secondDataCounter += 3;
 					}
 
-					for (Shape shape : shapesList)
-						System.out.println(shape.toString());
+//					for (Shape shape : shapesList)
+//						System.out.println(shape.toString());
 				}
 
 				sc.close();

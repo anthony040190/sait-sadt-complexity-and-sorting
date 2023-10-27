@@ -27,10 +27,10 @@ public class Sorts
             }
 
             if (swapped == false)
-                break;
-            
+                break;       
         }
     }
+	
 	public static <T> void bubbleSort(T[] arr, Comparator<? super T> c)
 	{
 		int i, j; 
@@ -72,6 +72,7 @@ public class Sorts
             arr[j + 1] = key;
         }
     }
+	
     public static <T> void insertionSort(T[] arr, Comparator<? super T> c) 
     {
         for (int i = 1; i < arr.length; i++) 
@@ -112,6 +113,7 @@ public class Sorts
             }
         }
     }
+    
     public static <T> void selectionSort(T[] arr, Comparator<? super T> c) 
     {
         for (int i = 0; i < arr.length - 1; i++) 
@@ -237,6 +239,8 @@ public class Sorts
             quickSort(arr, partitionIndex + 1, high);
         }
     }
+    
+    
     private static <T extends Comparable<? super T>> int partition(T[] arr, int low, int high) 
     {
         T pivot = arr[high];
@@ -271,6 +275,7 @@ public class Sorts
             quickSort(arr, partitionIndex + 1, high, c);
         }
     }
+    
     private static <T> int partition(T[] arr, int low, int high, Comparator<? super T> c) 
     {
         T pivot = arr[high];
@@ -291,6 +296,7 @@ public class Sorts
 
         return i + 1;
     }
+    
     private static <T> void swap(T[] arr, int i, int j) 
     {
         T temp = arr[i];
