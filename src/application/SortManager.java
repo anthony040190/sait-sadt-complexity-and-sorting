@@ -183,7 +183,6 @@ public class SortManager
 
 	private void fillShapeArray() {
 		String[] fileNames = { "res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt" };
-//		ArrayList<Shape> shapesList = new ArrayList<>();
 
 		for (String fileName : fileNames) {
 
