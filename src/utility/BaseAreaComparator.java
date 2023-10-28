@@ -9,11 +9,11 @@ public class BaseAreaComparator implements Comparator<Shape> {
     @Override
     public int compare(Shape shape1, Shape shape2) 
     {
-    	if(shape1.getBaseArea() > shape2.getBaseArea())
+    	if(shape1.getBaseArea() < shape2.getBaseArea())
     	{
     		return 1;
     	}
-    	else if(shape1.getBaseArea() < shape2.getBaseArea())
+    	else if(shape1.getBaseArea() > shape2.getBaseArea())
     	{
     		return -1;
     	}

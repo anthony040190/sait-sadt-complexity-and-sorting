@@ -29,13 +29,14 @@ public abstract class Shape implements Comparable<Shape>
 	{
 		if (this.height < that.height)
 		{
-			return -1;
-		}
-		if (this.height < that.height)
-		{
 			return 1;
 		}
-		return 0;
+		
+		if (this.height > that.height)
+		{
+			return -1;
 		}
+		
+		return 0;
 	}
-
+}

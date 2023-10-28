@@ -21,54 +21,54 @@ import utility.VolumeComparator;
 
 public class SortManager 
 {
-	private String fileName = "";
+	private String fileName;
 	private char compareType;
 	private char sortType;
-	private Shape[] shapes;
-	Shape[] shapesList;
+	Shape[] shapes;
 	
 
 	public SortManager(String[] args) 
 	{
-		 if(args[0].toLowerCase().startsWith("-f")) 
-		  { 
-			  fileName = args[0].substring(2);
-		  } 
-		  else if(args[1].toLowerCase().startsWith("-f")) 
-		  { 
-			  fileName = args[1].substring(2); 
-		  } 
-		  else if(args[2].toLowerCase().startsWith("-f")) 
-		  {
-			  fileName = args[2].substring(3); 
-		  } 
-		 
-		  if(args[0].toLowerCase().startsWith("-t"))
-		  { 
-			  compareType = args[0].substring(2).charAt(0); 
-		  } 
-		  else if (args[1].toLowerCase().startsWith("-t")) 
-		  {
-	          compareType = args[1].substring(2).charAt(0);
-	      }
-		  else if (args[2].toLowerCase().startsWith("-t")) 
-		  {
-	          compareType = args[2].substring(2).charAt(0);
-	      }
-		  
-	      if (args[0].toLowerCase().startsWith("-s")) 
-	      {
-	          sortType = args[0].substring(2).charAt(0);
-	      }
-	      else if (args[1].toLowerCase().startsWith("-s")) 
-	      {
-	          sortType = args[1].substring(2).charAt(0);
-	      }
-	      else if (args[2].toLowerCase().startsWith("-s")) 
-	      {
-	          sortType = args[2].substring(2).charAt(0);
-	      }		  
-			 
+		if(args[0].toLowerCase().startsWith("-f")) 
+		{
+			setFileName(args[0].substring(2));
+		} 
+		else if(args[1].toLowerCase().startsWith("-f")) 
+		{ 
+			setFileName(args[1].substring(2)); 
+		} 
+		else if(args[2].toLowerCase().startsWith("-f")) 
+		{
+			setFileName(args[2].substring(3)); 
+		} 
+	 
+		if(args[0].toLowerCase().startsWith("-t"))
+		{ 
+			compareType = args[0].substring(2).charAt(0); 
+		} 
+		else if (args[1].toLowerCase().startsWith("-t")) 
+		{
+			compareType = args[1].substring(2).charAt(0);
+		}
+		else if (args[2].toLowerCase().startsWith("-t")) 
+		{
+			compareType = args[2].substring(2).charAt(0);
+		}
+	  
+		if (args[0].toLowerCase().startsWith("-s")) 
+		{
+			sortType = args[0].substring(2).charAt(0);
+		}
+		else if (args[1].toLowerCase().startsWith("-s")) 
+		{
+			sortType = args[1].substring(2).charAt(0);
+		}
+		else if (args[2].toLowerCase().startsWith("-s")) 
+		{
+			sortType = args[2].substring(2).charAt(0);
+		}	
+				
+		
 		fillShapeArray();
 		sortShapes();
 		printSortedShapes();
@@ -96,11 +96,13 @@ public class SortManager
 	private void sortShapes() {
 		if (sortType == 'B' || sortType == 'b') {
 			if (compareType == 'H' || compareType == 'h') {
-				Sorts.bubbleSort(shapesList);
+				
+				Sorts.bubbleSort(shapes);
+				
 			} else if (compareType == 'A' || compareType == 'a') {
-				Sorts.bubbleSort(shapesList, new BaseAreaComparator());
+				Sorts.bubbleSort(shapes, new BaseAreaComparator());
 			} else if (compareType == 'V' || compareType == 'v') {
-				Sorts.bubbleSort(shapesList, new VolumeComparator());
+				Sorts.bubbleSort(shapes, new VolumeComparator());
 			}
 		}
 		if (sortType == 'I' || sortType == 'i') {
@@ -150,105 +152,85 @@ public class SortManager
 		}
 
 	}
-	
-	private int getTotalData() {
-		
-		String[] fileNames = { "res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt" };
-		int totalData = 0;
-		for (String fileName : fileNames) {
-
-			File textFile = new File(fileName);
-
-			try {
-				Scanner sc = new Scanner(textFile);
-
-				while (sc.hasNextLine()) {
-
-					String data = sc.nextLine();
-					String[] splittedData = data.split(" ");
-					
-					totalData += Integer.parseInt(splittedData[0]);
-					
-				}
-				 
-				sc.close();
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return totalData;
-	}
 
 	private void fillShapeArray() {
-		String[] fileNames = { "res/polyfor1.txt", "res/polyfor3.txt", "res/polyfor5.txt" };
+		String filePath = "res/" + getFileName();
+		
+		int indexCounter = 0;
+		
+		File textFile = new File(filePath);
+		
+		try {
+			Scanner sc = new Scanner(textFile);
 
-		for (String fileName : fileNames) {
+			while (sc.hasNextLine()) {
 
-			File textFile = new File(fileName);
+				String data = sc.nextLine();
+				String[] splittedData = data.split(" ");
 
-			try {
-				Scanner sc = new Scanner(textFile);
+				int heightCounter = 2;
+				int secondDataCounter = 3;
+				shapes = new Shape[Integer.parseInt(splittedData[0])];
+				for (int i = 1; i < splittedData.length; i += 3) {
 
-				while (sc.hasNextLine()) {
+					String shapeName = splittedData[i];
+					double height = Double.parseDouble(splittedData[heightCounter]);
+					double secondData = Double.parseDouble(splittedData[secondDataCounter]);
 
-					String data = sc.nextLine();
-					String[] splittedData = data.split(" ");
-
-					int heightCounter = 2;
-					int secondDataCounter = 3;
-					for (int i = 1; i < splittedData.length; i += 3) {
-
-						String shapeName = splittedData[i];
-						double height = Double.parseDouble(splittedData[heightCounter]);
-						double secondData = Double.parseDouble(splittedData[secondDataCounter]);
-
-						switch (shapeName) {
-						case "Cone":
+					switch (shapeName) {
+					case "Cone":
 //							shapesList.add(new Cone(height, secondData));
-							shapesList = new Cone(height, secondData);
-							break;
-						case "Cylinder":
+						shapes[indexCounter] = new Cone(height, secondData);
+						break;
+					case "Cylinder":
 //							shapesList.add(new Cylinder(height, secondData));
-							shapesList = new Cylinder(height, secondData);
-							break;
-						case "Pyramid":
+						shapes[indexCounter] = new Cylinder(height, secondData);
+						break;
+					case "Pyramid":
 //							shapesList.add(new Pyramid(height, secondData));
-							shapesList = new Pyramid(height, secondData);
-							break;
-						case "OctagonalPrism":
+						shapes[indexCounter] = new Pyramid(height, secondData);
+						break;
+					case "OctagonalPrism":
 //							shapesList.add(new OctagonalPrism(height, secondData));
-							shapesList = new OctagonalPrism(height, secondData);
-							break;
-						case "PentagonalPrism":
+						shapes[indexCounter] = new OctagonalPrism(height, secondData);
+						break;
+					case "PentagonalPrism":
 //							shapesList.add(new PentagonalPrism(height, secondData));
-							shapesList = new PentagonalPrism(height, secondData);
-							break;
-						case "SquarePrism":
+						shapes[indexCounter] = new PentagonalPrism(height, secondData);
+						break;
+					case "SquarePrism":
 //							shapesList.add(new SquarePrism(height, secondData));
-							shapesList = new SquarePrism(height, secondData);
-							break;
-						case "TriangularPrism":
+						shapes[indexCounter] = new SquarePrism(height, secondData);
+						break;
+					case "TriangularPrism":
 //							shapesList.add(new TriangularPrism(height, secondData));
-							shapesList = new TriangularPrism(height, secondData);
-							break;
-						}
-
-						heightCounter += 3;
-						secondDataCounter += 3;
+						shapes[indexCounter] = new TriangularPrism(height, secondData);
+						break;
+					default:
+						System.out.println("################################# EMPTY #########################################");
+						break;
 					}
+					
 
-//					for (Shape shape : shapesList)
-//						System.out.println(shape.toString());
+					heightCounter += 3;
+					secondDataCounter += 3;
+					indexCounter++;
 				}
-
-				sc.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			}
+
+			sc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }
