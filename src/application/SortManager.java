@@ -83,15 +83,50 @@ public class SortManager
 
 	    System.out.println("Time taken to sort: " + duration + " milliseconds");
 
-	    System.out.println("First sorted value: " + shapes[0]);
-	    System.out.println("Last sorted value: " + shapes[shapes.length - 1]);
-
-	    int interval = Math.max(1, shapes.length / 1000);
-	    for (int i = 0; i < shapes.length; i += interval) {
-	        System.out.println("Value at index " + i + ": " + shapes[i]);
+	    if (compareType == 'H' || compareType == 'h') {
+	        System.out.println("First sorted value: " + shapes[0].getHeight() + " meters");
+	    } else if (compareType == 'A' || compareType == 'a') {
+	        System.out.println("First sorted value: " + shapes[0].getBaseArea() + " square meters");
+	    } else if (compareType == 'V' || compareType == 'v') {
+	        System.out.println("First sorted value: " + shapes[0].getVolume() + " cubic meters");
 	    }
 
+	    int interval = 1000;
+	    for (int i = interval; i < shapes.length; i += interval) {
+	        System.out.println("Value at index " + i);
+	        if (compareType == 'H' || compareType == 'h') {
+	            System.out.println("Height: " + shapes[i].getHeight() + " meters");
+	        } else if (compareType == 'A' || compareType == 'a') {
+	            System.out.println("Base Area: " + shapes[i].getBaseArea() + " square meters");
+	        } else if (compareType == 'V' || compareType == 'v') {
+	            if (shapes[i] instanceof Pyramid) {
+	                System.out.println("Volume: " + ((Pyramid) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof Cone) {
+	                System.out.println("Volume: " + ((Cone) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof Cylinder) {
+	                System.out.println("Volume: " + ((Cylinder) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof SquarePrism) {
+	                System.out.println("Volume: " + ((SquarePrism) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof PentagonalPrism) {
+	                System.out.println("Volume: " + ((PentagonalPrism) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof OctagonalPrism) {
+	                System.out.println("Volume: " + ((OctagonalPrism) shapes[i]).getVolume() + " cubic meters");
+	            } else if (shapes[i] instanceof TriangularPrism) {
+	                System.out.println("Volume: " + ((TriangularPrism) shapes[i]).getVolume() + " cubic meters");
+	            }
+	        }
+	    }
+
+	    if (compareType == 'H' || compareType == 'h') {
+	        System.out.println("Last sorted value: " + shapes[shapes.length - 1].getHeight() + " meters");
+	    } else if (compareType == 'A' || compareType == 'a') {
+	        System.out.println("Last sorted value: " + shapes[shapes.length - 1].getBaseArea() + " square meters");
+	    } else if (compareType == 'V' || compareType == 'v') {
+	        System.out.println("Last sorted value: " + shapes[shapes.length - 1].getVolume() + " cubic meters");
+	    }
 	}
+
+
 
 	private void sortShapes() {
 		if (sortType == 'B' || sortType == 'b') {

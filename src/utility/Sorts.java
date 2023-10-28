@@ -2,6 +2,7 @@ package utility;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Stack;
 
 public class Sorts 
 {
@@ -223,88 +224,101 @@ public class Sorts
     	}
     }
     
-    
-    //QuickSort
-    public static <T extends Comparable<? super T>> void quickSort(T[] arr) 
-    {
-        quickSort(arr, 0, arr.length - 1);
-    }
-    private static <T extends Comparable<? super T>> void quickSort(T[] arr, int low, int high) 
-    {
-        if (low < high) 
-        {
-            int partitionIndex = partition(arr, low, high);
-
-            quickSort(arr, low, partitionIndex - 1);
-            quickSort(arr, partitionIndex + 1, high);
+    //Quicksort
+    public static <T extends Comparable<? super T>> void quickSort(T[] array) {
+        if (array == null || array.length == 0) {
+            return; // No need to sort
         }
+        quickSort(array, 0, array.length - 1);
     }
-    
-    
-    private static <T extends Comparable<? super T>> int partition(T[] arr, int low, int high) 
-    {
-        T pivot = arr[high];
 
-        int i = low - 1;
+    private static <T extends Comparable<? super T>> void quickSort(T[] array, int low, int high) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(low);
+        stack.push(high);
 
-        for (int j = low; j < high; j++) 
-        {
-            if (arr[j].compareTo(pivot) <= 0) 
-            {
-                i++;
+        while (!stack.isEmpty()) {
+            high = stack.pop();
+            low = stack.pop();
 
-                swap(arr, i, j);
+            if (low < high) {
+                int pi = partition(array, low, high);
+
+                if (pi - 1 > low) {
+                    stack.push(low);
+                    stack.push(pi - 1);
+                }
+
+                if (pi + 1 < high) {
+                    stack.push(pi + 1);
+                    stack.push(high);
+                }
             }
         }
-
-        swap(arr, i + 1, high);
-
-        return i + 1;
     }
-    public static <T> void quickSort(T[] arr, Comparator<? super T> c) 
-    {
-        quickSort(arr, 0, arr.length - 1, c);
-    }
-    private static <T> void quickSort(T[] arr, int low, int high, Comparator<? super T> c) 
-    {
-        if (low < high) 
-        {
-            int partitionIndex = partition(arr, low, high, c);
-
-            quickSort(arr, low, partitionIndex - 1, c);
-            quickSort(arr, partitionIndex + 1, high, c);
-        }
-    }
-    
-    private static <T> int partition(T[] arr, int low, int high, Comparator<? super T> c) 
-    {
-        T pivot = arr[high];
-
+    private static <T extends Comparable<? super T>> int partition(T[] array, int low, int high) {
+        T pivot = array[high];
         int i = low - 1;
-
-        for (int j = low; j < high; j++) 
-        {
-            if (c.compare(arr[j], pivot) <= 0) 
-            {
+        for (int j = low; j < high; j++) {
+            if (array[j].compareTo(pivot) <= 0) {
                 i++;
-
-                swap(arr, i, j);
+                swap(array, i, j);
             }
         }
-
-        swap(arr, i + 1, high);
-
+        swap(array, i + 1, high);
         return i + 1;
     }
-    
-    private static <T> void swap(T[] arr, int i, int j) 
-    {
-        T temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+
+    public static <T> void quickSort(T[] array, Comparator<? super T> comparator) {
+        if (array == null || array.length == 0) {
+            return; // No need to sort
+        }
+        quickSort(array, 0, array.length - 1, comparator);
     }
 
-    
+    private static <T> void quickSort(T[] array, int low, int high, Comparator<? super T> comparator) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(low);
+        stack.push(high);
+
+        while (!stack.isEmpty()) {
+            high = stack.pop();
+            low = stack.pop();
+
+            if (low < high) {
+                int pi = partition(array, low, high, comparator);
+
+                if (pi - 1 > low) {
+                    stack.push(low);
+                    stack.push(pi - 1);
+                }
+
+                if (pi + 1 < high) {
+                    stack.push(pi + 1);
+                    stack.push(high);
+                }
+            }
+        }
+    }
+
+    private static <T> int partition(T[] array, int low, int high, Comparator<? super T> comparator) {
+        T pivot = array[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (comparator.compare(array[j], pivot) <= 0) {
+                i++;
+                swap(array, i, j);
+            }
+        }
+        swap(array, i + 1, high);
+        return i + 1;
+    }
+
+    private static <T> void swap(T[] array, int i, int j) {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
     
     //HeapSort
 	public static <T extends Comparable<? super T>> void heapSort(T[] arr) 
