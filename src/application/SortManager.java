@@ -93,26 +93,31 @@ public class SortManager
 
 	    int interval = 1000;
 	    for (int i = interval; i < shapes.length; i += interval) {
-	        System.out.println("Value at index " + i);
 	        if (compareType == 'H' || compareType == 'h') {
-	            System.out.println("Height: " + shapes[i].getHeight() + " meters");
+	            if (shapes[i].getHeight() != 0) {
+	                System.out.println("Height: " + shapes[i].getHeight() + " meters");
+	            }
 	        } else if (compareType == 'A' || compareType == 'a') {
-	            System.out.println("Base Area: " + shapes[i].getBaseArea() + " square meters");
+	            if (shapes[i].getBaseArea() != 0) {
+	                System.out.println("Base Area: " + shapes[i].getBaseArea() + " square meters");
+	            }
 	        } else if (compareType == 'V' || compareType == 'v') {
-	            if (shapes[i] instanceof Pyramid) {
-	                System.out.println("Volume: " + ((Pyramid) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof Cone) {
-	                System.out.println("Volume: " + ((Cone) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof Cylinder) {
-	                System.out.println("Volume: " + ((Cylinder) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof SquarePrism) {
-	                System.out.println("Volume: " + ((SquarePrism) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof PentagonalPrism) {
-	                System.out.println("Volume: " + ((PentagonalPrism) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof OctagonalPrism) {
-	                System.out.println("Volume: " + ((OctagonalPrism) shapes[i]).getVolume() + " cubic meters");
-	            } else if (shapes[i] instanceof TriangularPrism) {
-	                System.out.println("Volume: " + ((TriangularPrism) shapes[i]).getVolume() + " cubic meters");
+	            if (shapes[i].getVolume() != 0) {
+	                if (shapes[i] instanceof Pyramid) {
+	                    System.out.println("Volume: " + ((Pyramid) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof Cone) {
+	                    System.out.println("Volume: " + ((Cone) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof Cylinder) {
+	                    System.out.println("Volume: " + ((Cylinder) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof SquarePrism) {
+	                    System.out.println("Volume: " + ((SquarePrism) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof PentagonalPrism) {
+	                    System.out.println("Volume: " + ((PentagonalPrism) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof OctagonalPrism) {
+	                    System.out.println("Volume: " + ((OctagonalPrism) shapes[i]).getVolume() + " cubic meters");
+	                } else if (shapes[i] instanceof TriangularPrism) {
+	                    System.out.println("Volume: " + ((TriangularPrism) shapes[i]).getVolume() + " cubic meters");
+	                }
 	            }
 	        }
 	    }
